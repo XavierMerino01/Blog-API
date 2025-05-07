@@ -6,10 +6,13 @@ const router = Router();
 
 router.get('/', passport.authenticate('jwt', { session: false }),
 function(req, res) {
-    res.send(req.user);
+    const user = req.user;
+    res.json({user, isAdmin : user.id === 1});
 }
 );
 
 router.post('/login', controller.userLogin);
+
+router.post('/register', controller.registerUser);
 
 module.exports = router;
